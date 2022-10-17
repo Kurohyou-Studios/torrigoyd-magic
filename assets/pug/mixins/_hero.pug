@@ -1,0 +1,13 @@
+mixin hero({header,pageLinks,anchorLinks})
+  .hero
+    h1 #{header}
+    if pageLinks
+      nav.navbar#page-nav
+        ul.navbar-nav.d-none.d-md-flex
+        each link in pageLinks
+          a(href=`${link.href}`) #{link.text}
+    if anchorLinks
+      nav.navbar#anchor-nav
+        ul.navbar-nav.d-none.d-md-flex
+        each link in anchorLinks
+          a(href=`#${link.href}`) #{link.text}

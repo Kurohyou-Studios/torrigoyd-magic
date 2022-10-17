@@ -1,0 +1,33 @@
+include ./mixins/_index.pug
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(http-equiv="X-UA-Compatible", content="IE=edge")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Torrigoyd Magic
+    +genericHeadLoad
+  +pageWrapper
+    //- +hero({
+    //-   header:'Torrigoyd Magic WIP',
+    //-   pageLinks:[
+    //-     {href:'./faq.html',text:'FAQ'}
+    //-   ],
+    //-   anchorLinks:[
+    //-     {href:'about',text:'about'}
+    //-   ]
+    //- })
+    form#item-search
+      fieldset(disabled)
+        input(type="text" name="search term" placeholder="Magic Item Name").form-control
+    .results
+      .card.row.result-header
+        h4.col Item
+        h4.col-1 Cost
+        h4.col-2 Rarity
+        h4.col-1 Source
+        h4.col-1 Attune
+        h4.col-2 Compendia
+      ul#result-content
+  include ./templates/_index.pug
+  +genericScripts

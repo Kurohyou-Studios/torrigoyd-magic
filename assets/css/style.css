@@ -1,0 +1,64 @@
+.page-wrapper{
+  max-height:100vh;
+  display:grid;
+  grid-template-rows:auto 1fr;
+}
+.result-header{
+  padding-block:0;
+  margin-block:0;
+  border-color:transparent;
+  position:sticky;
+  top:0;
+  z-index:100;
+  background-color:var(--lm-card-bg-color);
+  border-radius:0;
+}
+.result-header *:not(:first-child){
+text-align:center
+}
+.result-header > :first-child{
+  padding-left:10px;
+}
+.results{
+  overflow-y:auto;
+}
+#result-content > :first-child{
+  margin-top:0;
+}
+li.card{
+  list-style:none;
+}
+li > :not(.card-title){
+  text-align:center;
+}
+.rarity{
+  font-weight: bold;
+}
+.Uncommon{
+  color:#1FC219;
+}
+.Rare{
+  color:#4990E2;
+}
+.Very.Rare{
+  color:#9810E0;
+}
+.Legendary,
+.Artifact{
+  color:#BE8972;
+}
+.attune-border{
+  border:1px solid grey;
+  border-radius: 5px;
+  width:20px;
+  height:20px;
+  display:grid;
+  place-items:center;
+}
+.attune-border span{
+  font-size: 250%;
+  line-height: 100%;
+  position: relative;
+  top: -15px;
+  font-weight: bold;
+}

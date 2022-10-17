@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torrigoyd Magic</title>
+    <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="./assets/css/style.css"/>
+  </head>
+  <body>
+    <div class="page-wrapper with-navbar">
+      <form id="item-search">
+        <fieldset disabled>
+          <input class="form-control" type="text" name="search term" placeholder="Magic Item Name">
+        </fieldset>
+      </form>
+      <div class="results">
+        <div class="card row result-header">
+          <h4 class="col">Item</h4>
+          <h4 class="col-1">Cost</h4>
+          <h4 class="col-2">Rarity</h4>
+          <h4 class="col-1">Source</h4>
+          <h4 class="col-1">Attune</h4>
+          <h4 class="col-2">Compendia</h4>
+        </div>
+        <ul id="result-content"></ul>
+      </div>
+    </div>
+  </body>
+  <!-- Component templates-->
+  <template id="itemRow">
+    <li class="card row align-items-center"><span class="name col card-title">{{Item}}</span><span class="gp col-1">{{GP}}</span><span class="{{Rarity}} rarity col-2">{{Rarity}}</span><span class="source col-1">{{Source}}</span>
+      <div class="attune col-1 d-flex justify-content-center align-items-center">
+        <div class="attune-border"><span>{{#if (requiresAttune Attunement)}}✓{{/if}}</span></div>
+      </div><a class="col-1 d-flex justify-content-center align-items-center" href="{{beyondLink}}" target="_blank"><img src="./assets/images/dndbeyondlogo.png" alt="DNDb Beyond Entry" height="30px"></a><a class="col-1 d-flex justify-content-center align-items-center" href="{{r20Link}}" target="_blank"><img src="./assets/images/r20logo.png" alt="Roll20 Compendium Entry" height="30px"></a>
+    </li>
+  </template>
+  <!-- End Component templates-->
+  <script src="https://cdn.jsdelivr.net/npm/fuzzysort@2.0.1/fuzzysort.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js" integrity="sha512-RNLkV3d+aLtfcpEyFG8jRbnWHxUqVZozacROI4J2F1sTaDqo1dPQYs01OMi1t1w9Y2FdbSCDSQ2ZVdAC8bzgAg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="./assets/js/gapiInit.js"></script>
+  <script src="./assets/js/hbsInit.js"></script>
+  <script src="./assets/js/pricecheck.js"></script>
+  <script src="./assets/js/itemsearch.js"></script>
+  <script async="async" defer="defer" src="https://apis.google.com/js/api.js" onload="gapiLoaded()"></script>
+</html>

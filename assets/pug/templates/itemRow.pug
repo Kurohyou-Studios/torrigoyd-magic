@@ -1,0 +1,13 @@
+template#itemRow
+  li.card.row.align-items-center
+    span.name.col.card-title {{Item}}
+    span.gp.col-1 {{GP}}
+    span(class="{{Rarity}}").rarity.col-2 {{Rarity}}
+    span.source.col-1 {{Source}}
+    .attune.col-1.d-flex.justify-content-center.align-items-center
+      .attune-border
+        span {{#if (requiresAttune Attunement)}}✓{{/if}}
+    a(href="{{beyondLink}}" target="_blank").col-1.d-flex.justify-content-center.align-items-center
+      img(src="./assets/images/dndbeyondlogo.png", alt="DNDb Beyond Entry" height="30px")
+    a(href="{{r20Link}}" target="_blank").col-1.d-flex.justify-content-center.align-items-center
+      img(src="./assets/images/r20logo.png", alt="Roll20 Compendium Entry" height="30px")
