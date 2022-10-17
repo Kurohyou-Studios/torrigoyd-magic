@@ -1,0 +1,40 @@
+{
+  "name": "torrigoydmagic",
+  "version": "1.0.0",
+  "description": "",
+  "main": "generate.js",
+  "scripts": {
+    "generate": "nodemon generate.js",
+    "test": "jest --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kurohyou-Studios/torrigoydMagic.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kurohyou-Studios/torrigoydMagic/issues"
+  },
+  "homepage": "https://github.com/Kurohyou-Studios/torrigoydMagic#readme",
+  "dependencies": {
+    "pug": "^3.0.2"
+  },
+  "jest": {
+    "reporters": [
+      "default",
+      [
+        "jest-summary-reporter",
+        {
+          "failuresOnly": false
+        }
+      ]
+    ]
+  },
+  "devDependencies": {
+    "jest": "^29.1.2",
+    "nodemon": "^2.0.19",
+    "jest-summary-reporter": "^0.0.2"
+  }
+}
