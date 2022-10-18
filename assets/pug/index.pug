@@ -28,7 +28,7 @@ html(lang="en")
             each option in ['Common','Uncommon','Rare','Very Rare','Legendary']
               label(style="margin:0").pseudo-option
                 input(type="checkbox" value=option name="rarity")
-                span #{option}
+                span(class=`rarity ${option}`) #{option}
         fieldset
           label(for='attune') Attunement
           select(class="form-control" id="attune")
