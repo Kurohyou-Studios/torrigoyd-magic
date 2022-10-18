@@ -12,12 +12,13 @@
     <div class="page-wrapper with-navbar">
       <form id="item-search">
         <fieldset disabled>
-          <input class="form-control" type="text" name="search term" placeholder="Magic Item Name">
+          <input class="form-control" type="text" name="search term" placeholder="Magic Item Name, Type, Cost, or Rarity" autocomplete="off">
         </fieldset>
       </form>
       <div class="results">
         <div class="card row result-header">
           <h4 class="col">Item</h4>
+          <h4 class="col-1">Type</h4>
           <h4 class="col-1">Cost</h4>
           <h4 class="col-2">Rarity</h4>
           <h4 class="col-1">Source</h4>
@@ -30,7 +31,7 @@
   </body>
   <!-- Component templates-->
   <template id="itemRow">
-    <li class="card row align-items-center"><span class="name col card-title">{{Item}}</span><span class="gp col-1">{{GP}}</span><span class="{{Rarity}} rarity col-2">{{Rarity}}</span><span class="source col-1">{{Source}}</span>
+    <li class="card row align-items-center"><span class="name col card-title">{{Item}}</span><span class="type col-1">{{Type}}</span><span class="gp col-1">{{GP}}</span><span class="{{Rarity}} rarity col-2">{{Rarity}}</span><span class="source col-1">{{Source}}</span>
       <div class="attune col-1 d-flex justify-content-center align-items-center">
         <div class="attune-border"><span>{{#if (requiresAttune Attunement)}}✓{{/if}}</span></div>
       </div><a class="col-1 d-flex justify-content-center align-items-center" href="{{beyondLink}}" target="_blank"><img src="./assets/images/dndbeyondlogo.png" alt="DNDb Beyond Entry" height="30px"></a><a class="col-1 d-flex justify-content-center align-items-center" href="{{r20Link}}" target="_blank"><img src="./assets/images/r20logo.png" alt="Roll20 Compendium Entry" height="30px"></a>
