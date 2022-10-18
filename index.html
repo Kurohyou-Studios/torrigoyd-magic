@@ -8,15 +8,87 @@
     <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="./assets/css/style.css"/>
   </head>
-  <body>
+  <body class="with-custom-webkit-scrollbars with-custom-css-scrollbars">
     <div class="page-wrapper with-navbar">
       <form id="item-search">
-        <fieldset disabled>
-          <input class="form-control" type="text" name="search term" placeholder="Magic Item Name, Type, Cost, or Rarity" autocomplete="off">
+        <fieldset class="form-group" disabled>
+          <label for="search-term">Search For</label>
+          <input class="form-control" type="text" id="search-term" placeholder="Magic Item Name, Cost, or Source" autocomplete="off">
+        </fieldset>
+        <fieldset class="form-row gap-5" disabled>
+          <div class="col">
+            <label>Rarity</label>
+            <div class="row align-items-center pseudo-select">
+              <label class="pseudo-option" style="margin:0">
+                <input type="checkbox" value="Common" name="rarity"><span>Common</span>
+              </label>
+              <label class="pseudo-option" style="margin:0">
+                <input type="checkbox" value="Uncommon" name="rarity"><span>Uncommon</span>
+              </label>
+              <label class="pseudo-option" style="margin:0">
+                <input type="checkbox" value="Rare" name="rarity"><span>Rare</span>
+              </label>
+              <label class="pseudo-option" style="margin:0">
+                <input type="checkbox" value="Very Rare" name="rarity"><span>Very Rare</span>
+              </label>
+              <label class="pseudo-option" style="margin:0">
+                <input type="checkbox" value="Legendary" name="rarity"><span>Legendary</span>
+              </label>
+            </div>
+          </div>
+          <fieldset>
+            <label for="attune">Attunement</label>
+            <select class="form-control" id="attune">
+              <option value="" selected="selected">Any</option>
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+          </fieldset>
+        </fieldset>
+        <fieldset class="form-group col" disabled>
+          <label>Type</label>
+          <div class="row align-items-center pseudo-select">
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Ammunition" name="type"><span>Ammunition</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Armor" name="type"><span>Armor</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Potions &amp; Oils" name="type"><span>Potions &amp; Oils</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Ring" name="type"><span>Ring</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Rod" name="type"><span>Rod</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Scroll" name="type"><span>Scroll</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Shield" name="type"><span>Shield</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Spell Gem" name="type"><span>Spell Gem</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Staff" name="type"><span>Staff</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Wand" name="type"><span>Wand</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Weapon" name="type"><span>Weapon</span>
+            </label>
+            <label class="pseudo-option" style="margin:0">
+              <input type="checkbox" value="Wondrous Item" name="type"><span>Wondrous Item</span>
+            </label>
+          </div>
         </fieldset>
       </form>
       <div class="results">
-        <div class="card row result-header">
+        <div class="card row result-header gap-5">
           <h4 class="col">Item</h4>
           <h4 class="col-1">Type</h4>
           <h4 class="col-1">Cost</h4>
@@ -31,7 +103,7 @@
   </body>
   <!-- Component templates-->
   <template id="itemRow">
-    <li class="card row align-items-center"><span class="name col card-title">{{Item}}</span><span class="type col-1">{{Type}}</span><span class="gp col-1">{{GP}}</span><span class="{{Rarity}} rarity col-2">{{Rarity}}</span><span class="source col-1">{{Source}}</span>
+    <li class="card row align-items-center gap-5"><span class="name col card-title">{{Item}}</span><span class="type col-1">{{Type}}</span><span class="gp col-1">{{GP}}</span><span class="{{Rarity}} rarity col-2">{{Rarity}}</span><span class="source col-1">{{Source}}</span>
       <div class="attune col-1 d-flex justify-content-center align-items-center">
         <div class="attune-border"><span>{{#if (requiresAttune Attunement)}}✓{{/if}}</span></div>
       </div><a class="col-1 d-flex justify-content-center align-items-center" href="{{beyondLink}}" target="_blank"><img src="./assets/images/dndbeyondlogo.png" alt="DNDb Beyond Entry" height="30px"></a><a class="col-1 d-flex justify-content-center align-items-center" href="{{r20Link}}" target="_blank"><img src="./assets/images/r20logo.png" alt="Roll20 Compendium Entry" height="30px"></a>

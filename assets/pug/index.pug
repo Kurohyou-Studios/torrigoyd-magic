@@ -18,10 +18,33 @@ html(lang="en")
     //-   ]
     //- })
     form#item-search
-      fieldset(disabled)
-        input(type="text" name="search term" placeholder="Magic Item Name, Type, Cost, or Rarity" autocomplete="off").form-control
+      fieldset(disabled).form-group
+        label(for='search-term') Search For
+        input(type="text" id="search-term" placeholder="Magic Item Name, Cost, or Source" autocomplete="off").form-control
+      fieldset(disabled).form-row.gap-5
+        .col
+          label Rarity
+          .row.align-items-center.pseudo-select
+            each option in ['Common','Uncommon','Rare','Very Rare','Legendary']
+              label(style="margin:0").pseudo-option
+                input(type="checkbox" value=option name="rarity")
+                span #{option}
+        fieldset
+          label(for='attune') Attunement
+          select(class="form-control" id="attune")
+            option(value="" selected="selected") Any
+            option(value="Yes") Yes
+            option(value="No") No
+      fieldset(disabled).form-group.col
+        label Type
+        div.row.align-items-center.pseudo-select
+          each option in ['Ammunition','Armor','Potions & Oils','Ring','Rod','Scroll','Shield','Spell Gem','Staff','Wand','Weapon','Wondrous Item']
+            label(style="margin:0").pseudo-option
+              input(type="checkbox" value=option name="type")
+              span #{option}
+
     .results
-      .card.row.result-header
+      .card.row.result-header.gap-5
         h4.col Item
         h4.col-1 Type
         h4.col-1 Cost
