@@ -14,7 +14,7 @@
   border-color: transparent;
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 20;
   background-color: var(--lm-card-bg-color);
   border-radius: 0;
 }
@@ -111,7 +111,7 @@ form {
   box-shadow: var(--lm-input-box-shadow);
   border-radius: var(--input-border-radius);
   padding-inline: var(--input-horizontal-padding);
-  height:var(--input-height);
+  min-height:var(--input-height);
 }
 
 .pseudo-option>input[type="checkbox"] {
@@ -120,8 +120,12 @@ form {
 
 .pseudo-option>span {
   padding-inline: 0.5rem;
+  cursor: pointer;
 }
 
 .pseudo-option>input:checked+span {
   background-color: rgb(206, 206, 206);
+}
+.no-list{
+  list-style:none;
 }
