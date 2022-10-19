@@ -13,6 +13,20 @@ const outputDetails = async (arr) => {
   )
 };
 
+const calcRealCost = (gp) => {
+  const campaignMod = +activeCampaign['Price Mod'] || 1;
+  const cityMod = +activeLocation[`${activeCampaign.Name}: Cost`] || 1;
+  const total = gp * campaignMod * cityMod;
+  const gold = Math.floor(total);
+  const dec = total - gold;
+  const silver = Math.floor(dec * 10);
+  const copper = Math.floor(Math.floor(dec * 10 - silver) * 10);
+  const gpText = gold ? `${gold} GP` : '';
+  const spText = silver ? `${silver} SP` : '';
+  const cpText = copper ? `${copper} CP` : '';
+  return [gpText,spText,cpText].filter(t=>t).join(' ');
+};
+
 const getAllSelected = (select) => 
   select && select.options ?
     [...select.options].reduce((memo,opt) => {
@@ -34,6 +48,7 @@ const getAllChecked = (checks) =>
     null;
 
 const filterItems = () => {
+  console.log('filtering');
   const searchString = searchInput.value;
   const attuneSearch = attuneFilter.value;
   const rareSearch = getAllChecked(rareFilter);
@@ -55,17 +70,16 @@ const filterItems = () => {
     
   const newContent = filtered.reduce((memo,item) => {
     const searchString = item.obj.Item.replace(/\s*\(.+\)\s*/g,'').trim();
-    memo.push(...templates.itemRow({...item.obj,r20Link:`https://roll20.net/compendium/dnd5e/${searchString}`,beyondLink:`https://www.dndbeyond.com/magic-items/${searchString.replace(/\s+/g,'-')}`}));
+    memo.push(...templates.itemRow({...item.obj,GP:calcRealCost(item.obj.GP),r20Link:`https://roll20.net/compendium/dnd5e/${searchString}`,beyondLink:`https://www.dndbeyond.com/magic-items/${searchString.replace(/\s+/g,'-')}`}));
     return memo;
   },[]);
-  console.log('newcontent',newContent);
   resultTarget.replaceChildren(...newContent)
 }
 
 searchForm.addEventListener('submit',(e)=> e.preventDefault);
 searchForm.addEventListener('input',filterItems);
 const filterInit = ()=>{
-  if(itemContent){
+  if(itemContent.length){
     filterItems();
   }else{
     setTimeout(filterInit,500);

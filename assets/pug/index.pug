@@ -17,33 +17,50 @@ html(lang="en")
     //-     {href:'about',text:'about'}
     //-   ]
     //- })
-    form#item-search
-      fieldset(disabled).form-group
-        label(for='search-term') Search For
-        input(type="text" id="search-term" placeholder="Magic Item Name, Cost, or Source" autocomplete="off").form-control
-      fieldset(disabled).form-row.gap-5
-        .col
-          label Rarity
-          .row.align-items-center.pseudo-select
-            each option in ['Common','Uncommon','Rare','Very Rare','Legendary']
+    div(onclick="halfmoon.toggleSidebar()").sidebar-overlay
+    nav.navbar
+      .navbar-content
+        button#toggle-sidebar-btn.btn.btn-action.material-icons(type='button' onclick='halfmoon.toggleSidebar()') menu
+      .navbar-content.d-flex.gap-10.align-items-end
+        h2.align-self-start.font-size-24.m-0#active-campaign
+        h3.font-size-16.m-0#current-location
+    .sidebar
+      .sidebar-menu
+        .sidebar-content
+          form#campaign-settings
+            fieldset(disabled).form-group
+              label(for='campaign-name') Campaign
+              select(class="form-control" id="campaign-name")
+            fieldset(disabled).form-group
+              label(for="location") Location
+              input(type="text" id="location-search" autocomplete="off").form-control
+              ul#location-suggestions.d-flex.flex-column.gap-5.py-10
+    .content-wrapper
+      form#item-search
+        fieldset(disabled).form-group
+          label(for='search-term') Search For
+          input(type="text" id="search-term" placeholder="Magic Item Name, Cost, or Source" autocomplete="off").form-control
+        fieldset(disabled).form-row.gap-5
+          .col
+            label Rarity
+            .row.align-items-center.pseudo-select
+              each option in ['Common','Uncommon','Rare','Very Rare','Legendary']
+                label(style="margin:0").pseudo-option
+                  input(type="checkbox" value=option name="rarity")
+                  span(class=`rarity ${option}`) #{option}
+          fieldset
+            label(for='attune') Attunement
+            select(class="form-control" id="attune")
+              option(value="" selected="selected") Any
+              option(value="Yes") Yes
+              option(value="No") No
+        fieldset(disabled).form-group.col
+          label Type
+          div.row.align-items-center.pseudo-select
+            each option in ['Ammunition','Armor','Potions & Oils','Ring','Rod','Scroll','Shield','Spell Gem','Staff','Wand','Weapon','Wondrous Item']
               label(style="margin:0").pseudo-option
-                input(type="checkbox" value=option name="rarity")
-                span(class=`rarity ${option}`) #{option}
-        fieldset
-          label(for='attune') Attunement
-          select(class="form-control" id="attune")
-            option(value="" selected="selected") Any
-            option(value="Yes") Yes
-            option(value="No") No
-      fieldset(disabled).form-group.col
-        label Type
-        div.row.align-items-center.pseudo-select
-          each option in ['Ammunition','Armor','Potions & Oils','Ring','Rod','Scroll','Shield','Spell Gem','Staff','Wand','Weapon','Wondrous Item']
-            label(style="margin:0").pseudo-option
-              input(type="checkbox" value=option name="type")
-              span #{option}
-
-    .results
+                input(type="checkbox" value=option name="type")
+                span #{option}
       .card.row.result-header.gap-5
         h4.col Item
         h4.col-1 Type

@@ -1,4 +1,4 @@
 mixin pageWrapper
-  body.with-custom-webkit-scrollbars.with-custom-css-scrollbars
-    .page-wrapper.with-navbar
+  body(class="with-custom-webkit-scrollbars with-custom-css-scrollbars")
+    div(data-sidebar-type="overlayed-all" data-sidebar-hidden="hidden" class="page-wrapper with-navbar with-sidebar with-transitions")
       block
