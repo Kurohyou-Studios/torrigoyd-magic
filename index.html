@@ -133,7 +133,7 @@
   <!-- Component templates-->
   <template id="itemRow">
     <li class="card row align-items-center gap-5"><span class="name col card-title">{{Item}}</span><span class="type col-1">{{Type}}</span><span class="gp col-1 font-weight-bold">{{GP}}</span>
-      <div class="col-2 d-flex flex-column gap-5 rarity"><span class="{{Rarity}}">{{Rarity}}</span><span class="dc">d100 + Persuasion Check: {{searchDC}}</span></div><span class="source col-1">{{Source}}</span>
+      <div class="col-2 d-flex flex-column gap-5 rarity"><span class="{{Rarity}}">{{Rarity}}</span><span class="dc">Check: {{searchDC}}</span></div><span class="source col-1">{{Source}}</span>
       <div class="attune col-1 d-flex justify-content-center align-items-center">
         <div class="attune-border"><span>{{#if (requiresAttune Attunement)}}✓{{/if}}</span></div>
       </div><a class="col-1 d-flex justify-content-center align-items-center" href="{{beyondLink}}" target="_blank"><img src="./assets/images/dndbeyondlogo.png" alt="DNDb Beyond Entry" height="30px"></a><a class="col-1 d-flex justify-content-center align-items-center" href="{{r20Link}}" target="_blank"><img src="./assets/images/r20logo.png" alt="Roll20 Compendium Entry" height="30px"></a>
