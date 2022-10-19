@@ -4,7 +4,7 @@
   "description": "",
   "main": "generate.js",
   "scripts": {
-    "generate": "nodemon generate.js",
+    "build": "nodemon generate.js",
     "test": "jest --watch"
   },
   "repository": {

@@ -3,7 +3,9 @@ template#itemRow
     span.name.col.card-title {{Item}}
     span.type.col-1 {{Type}}
     span.gp.col-1.font-weight-bold {{GP}}
-    span(class="{{Rarity}}").rarity.col-2 {{Rarity}}
+    div.col-2.d-flex.flex-column.gap-5.rarity
+      span(class="{{Rarity}}") {{Rarity}}
+      span(class='dc') Check: {{searchDC}}
     span.source.col-1 {{Source}}
     .attune.col-1.d-flex.justify-content-center.align-items-center
       .attune-border

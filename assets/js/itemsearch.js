@@ -27,6 +27,25 @@ const calcRealCost = (gp) => {
   return [gpText,spText,cpText].filter(t=>t).join(' ');
 };
 
+const calcSearchDC = (dc,rarity) => {
+  const baseDC = +dc || null;
+  if((baseDC ?? false) === false){
+    if(rarity){
+      return `${calcSearchDC(rarityDCs[rarity][0])} - ${calcSearchDC(rarityDCs[rarity][1])}`;
+    }else{
+      return 'Ask your GM';
+    }
+  }
+  const campaignMod = +activeCampaign['Rarity Mod'] || 0;
+  const locationMod = +activeLocation[`${activeCampaign.Name}: Rarity`] || 0;
+  const locationSize = activeLocation['City Size'];
+  const locationSizeMod = locationSize ?
+    citySizes[locationSize] :
+    0;
+  const total = baseDC + campaignMod + locationMod + locationSizeMod;
+  return total;
+};
+
 const getAllSelected = (select) => 
   select && select.options ?
     [...select.options].reduce((memo,opt) => {
@@ -70,7 +89,7 @@ const filterItems = () => {
     
   const newContent = filtered.reduce((memo,item) => {
     const searchString = item.obj.Item.replace(/\s*\(.+\)\s*/g,'').trim();
-    memo.push(...templates.itemRow({...item.obj,GP:calcRealCost(item.obj.GP),r20Link:`https://roll20.net/compendium/dnd5e/${searchString}`,beyondLink:`https://www.dndbeyond.com/magic-items/${searchString.replace(/\s+/g,'-')}`}));
+    memo.push(...templates.itemRow({...item.obj,GP:calcRealCost(item.obj.GP),searchDC:calcSearchDC(item.obj['Search DC'],item.obj.Rarity),r20Link:`https://roll20.net/compendium/dnd5e/${searchString}`,beyondLink:`https://www.dndbeyond.com/magic-items/${searchString.replace(/\s+/g,'-')}`}));
     return memo;
   },[]);
   resultTarget.replaceChildren(...newContent)
