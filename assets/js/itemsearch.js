@@ -1,10 +1,4 @@
-const searchInput = document.getElementById('search-term');
-const attuneFilter = document.getElementById('attune');
-const rareFilter = document.getElementsByName('rarity');
-const typeFilter = document.getElementsByName('type');
 
-const searchForm = document.getElementById('item-search');
-const resultTarget = document.getElementById('result-content');
 const outputDetails = async (arr) => {
   await Promise.all(
     arr.map(async () => {
@@ -13,10 +7,9 @@ const outputDetails = async (arr) => {
   )
 };
 
-const calcRealCost = (gp) => {
-  const campaignMod = +activeCampaign['Price Mod'] || 1;
-  const cityMod = +activeLocation[`${activeCampaign.Name}: Cost`] || 1;
-  const total = gp * campaignMod * cityMod;
+const calcRealCost = (location,gp) => {
+  const totalMod = calcCostMod(location);
+  const total = gp * totalMod;
   const gold = Math.floor(total);
   const dec = total - gold;
   const silver = Math.floor(dec * 10);
@@ -27,7 +20,7 @@ const calcRealCost = (gp) => {
   return [gpText,spText,cpText].filter(t=>t).join(' ');
 };
 
-const calcSearchDC = (dc,rarity) => {
+const calcSearchDC = (location,dc,rarity) => {
   const baseDC = +dc || null;
   if((baseDC ?? false) === false){
     if(rarity){
@@ -36,13 +29,8 @@ const calcSearchDC = (dc,rarity) => {
       return 'Ask your GM';
     }
   }
-  const campaignMod = +activeCampaign['Rarity Mod'] || 0;
-  const locationMod = +activeLocation[`${activeCampaign.Name}: Rarity`] || 0;
-  const locationSize = activeLocation['City Size'];
-  const locationSizeMod = locationSize ?
-    citySizes[locationSize] :
-    0;
-  const total = baseDC + campaignMod + locationMod + locationSizeMod;
+  const totalMod = calcRarityMod(location);
+  const total = baseDC + totalMod;
   return total;
 };
 
@@ -66,12 +54,32 @@ const getAllChecked = (checks) =>
     },[]) :
     null;
 
+const outputItemRows = (location,filtered) => {
+  const newContent = filtered.reduce((memo,item) => {
+    const searchString = item.obj.Item.replace(/\s*\(.+\)\s*/g,'').trim();
+    memo.push(...templates.itemRow({...item.obj,GP:calcRealCost(location,item.obj.GP),searchDC:calcSearchDC(location,item.obj['Search DC'],item.obj.Rarity),r20Link:`https://roll20.net/compendium/dnd5e/${searchString}`,beyondLink:`https://www.dndbeyond.com/magic-items/${searchString.replace(/\s+/g,'-')}`}));
+    return memo;
+  },[]);
+  $resultTarget.replaceChildren(...newContent);
+
+};
+
 const filterItems = () => {
-  console.log('filtering');
-  const searchString = searchInput.value;
-  const attuneSearch = attuneFilter.value;
-  const rareSearch = getAllChecked(rareFilter);
-  const typeSearch = getAllChecked(typeFilter);
+  const searchString = $searchInput.value;
+  const attuneSearch = $attuneFilter.value;
+  const rareSearch = getAllChecked($rareFilter);
+  const typeSearch = getAllChecked($typeFilter);
+
+  updateParam({
+    paramArr:[
+      ['item',searchString],
+      ['attune',attuneSearch],
+      ['rarity',rareSearch],
+      ['type',typeSearch]
+    ],
+    reset:true
+  });
+
   // debugger;
   const filtered = fuzzysort.go(searchString,itemContent,{all:true,keys:['Item','GP','Source']})
     .filter(item => {
@@ -86,22 +94,16 @@ const filterItems = () => {
         true;
       return attuneMatch && rarityMatch && typeMatch;
     });
-    
-  const newContent = filtered.reduce((memo,item) => {
-    const searchString = item.obj.Item.replace(/\s*\(.+\)\s*/g,'').trim();
-    memo.push(...templates.itemRow({...item.obj,GP:calcRealCost(item.obj.GP),searchDC:calcSearchDC(item.obj['Search DC'],item.obj.Rarity),r20Link:`https://roll20.net/compendium/dnd5e/${searchString}`,beyondLink:`https://www.dndbeyond.com/magic-items/${searchString.replace(/\s+/g,'-')}`}));
-    return memo;
-  },[]);
-  resultTarget.replaceChildren(...newContent)
-}
+  outputItemRows(activeLocation,filtered)
+};
 
-searchForm.addEventListener('submit',(e)=> e.preventDefault);
-searchForm.addEventListener('input',filterItems);
 const filterInit = ()=>{
   if(itemContent.length){
+    enableForms();
     filterItems();
+    $searchForm.addEventListener('submit',(e)=> e.preventDefault);
+    $searchForm.addEventListener('input',filterItems);
   }else{
     setTimeout(filterInit,500);
   }
 };
-filterInit();

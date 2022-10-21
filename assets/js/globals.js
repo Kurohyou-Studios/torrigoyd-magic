@@ -1,5 +1,5 @@
 const storedData = new Proxy(
-  JSON.parse(localStorage.getItem('torrigoyd')) || {},
+  JSON.parse(localStorage.getItem('torrigoyd')) || {shops:{}},
   {
     set(target, prop, value){
       target[prop] = value;
@@ -17,12 +17,25 @@ const headerIndexes = {
   'Attunement':-1,
   'Search DC':-1
 }
-  
+
+// HTML Elements
+const $main = document.getElementById('main-page');
+const $breadcrumb = document.getElementById('location-breadcrumb');
 const $campaignSelect = document.getElementById('campaign-name');
 const $locationSearch = document.getElementById('location-search');
 const $campaignHeader = document.getElementById('active-campaign');
-const $locationHeader = document.getElementById('current-location');
 const $locationSuggestions = document.getElementById('location-suggestions');
+
+// Item Search Elements
+let $searchInput;
+let $attuneFilter;
+let $rareFilter;
+let $typeFilter;
+let $searchForm;
+let $resultTarget;
+
+// Shop Search Elements
+let $shopContainer
 
 const citySizes = {
   Metropolis:-40,
@@ -47,3 +60,6 @@ const campaigns = [];
 let activeCampaign;
 const locations = [];
 let activeLocation;
+
+const shops = [];
+let activeShop;
