@@ -1,5 +1,9 @@
 :root {
   --gap: 1rem;
+  --lm-button-link-box-shadow-focus:transparent;
+}
+.card{
+  margin:0;
 }
 
 .page-wrapper {
@@ -35,11 +39,11 @@
   margin-top: 0;
 }
 
-li.card {
+li {
   list-style: none;
 }
 
-li> :not(.card-title) {
+li > :not(.card-title) {
   text-align: center;
 }
 
@@ -117,7 +121,9 @@ form {
 .pseudo-option>input[type="checkbox"] {
   display: none;
 }
-
+button{
+  cursor: pointer;
+}
 .pseudo-option>span {
   padding-inline: 0.5rem;
   cursor: pointer;
@@ -128,4 +134,12 @@ form {
 }
 .no-list{
   list-style:none;
+}
+
+.breadcrumb{
+  margin:0;
+}
+
+#shops{
+  padding:var(--content-and-card-spacing);
 }

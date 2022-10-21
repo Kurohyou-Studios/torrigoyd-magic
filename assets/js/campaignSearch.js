@@ -1,6 +1,5 @@
 
 const locationSearch = (event) => {
-  console.log('event',event);
   const matches = fuzzysort.go(event.target.value,locations,{key:'Name'});
   const $lis = matches.reduce((memo,m) => {
     memo.push(...templates.locationSuggestion(m.obj));
@@ -11,21 +10,21 @@ const locationSearch = (event) => {
 
 const activateLocation = (button) => {
   storedData.location = button.dataset.name;
+  history.pushState(null,'',`${window.location.pathname}${window.location.search.replace(/=[^\&]*/g,'=')}`);
   updateCampaignDisplay();
-  console.log('button',button);
   halfmoon.toggleSidebar();
   $locationSuggestions.replaceChildren();
   $locationSearch.value = '';
 };
 
 const selectLocation = (event) => {
-  console.log('click event',event.target);
   activateLocation(event.target);
 };
 
 $campaignSelect.addEventListener('change',(event)=>{
   storedData.campaign = event.target.value;
   storedData.location = campaigns.find(o => o.Name === event.target.value)['Current Location'];
+  history.pushState(null,'',`${window.location.pathname}${window.location.search.replace(/=[^\&]*/g,'=')}`)
   updateCampaignDisplay();
 });
 

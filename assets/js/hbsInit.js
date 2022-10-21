@@ -20,8 +20,6 @@ const createTemplateFromID = (id) => getTemplateContent(document.getElementById(
 
 const templates = [...document.getElementsByTagName('template')]
   .reduce((m,el)=>{
-    console.log('innerHTML',el.innerHTML);
     m[el.id] = createTemplate(el);
     return m;
   },{});
-console.log('templates',templates);

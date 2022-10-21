@@ -28,7 +28,6 @@ async function intializeGapiClient() {
     apiKey: API_KEY,
     discoveryDocs: [DISCOVERY_DOC],
   });
-  console.log('Gapi initiated');
   spreadsheets = gapi.client.sheets.spreadsheets;
   gapiInited = true;
 }
