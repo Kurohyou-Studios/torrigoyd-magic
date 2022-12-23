@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="circleProfile.png"/>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurohyou's Market</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/css/halfmoon-variables.min.css" rel="stylesheet"/>
+  </head>
+  <body class="with-custom-webkit-scrollbars with-custom-css-scrollbars">
+    <div id="app" data-sidebar-type="overlayed-all" data-sidebar-hidden="hidden" class="page-wrapper with-navbar with-sidebar with-transitions"></div>
+    <script>
+      const gapiPromise = new Promise((res, rej) => {
+        window.gapiLoaded = res;
+        window.gapiLoadError = rej;
+      });
+      window.gapiPromise = gapiPromise;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/halfmoon@1.1.1/js/halfmoon.min.js"></script>
+    <script type="module" src="/src/main.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="window.gapiLoaded()" onerror="window.gapiLoadError(event)"></script>
+  </body>
+</html>

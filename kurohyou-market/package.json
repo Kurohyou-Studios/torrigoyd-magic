@@ -1,0 +1,28 @@
+{
+  "name": "kurohyou-market",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:e2e": "start-server-and-test preview :4173 'cypress run --e2e'",
+    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' :4173 'cypress open --e2e'",
+    "test:unit": "cypress run --component",
+    "test:unit:dev": "cypress open --component"
+  },
+  "dependencies": {
+    "fuzzysort": "^2.0.1",
+    "pinia": "^2.0.23",
+    "pinia-plugin-persistedstate": "^2.3.0",
+    "vue": "^3.2.41",
+    "vue-router": "^4.1.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^3.1.2",
+    "@vitejs/plugin-vue-jsx": "^2.0.1",
+    "cypress": "^10.10.0",
+    "sass": "^1.55.0",
+    "start-server-and-test": "^1.14.0",
+    "vite": "^3.1.8"
+  }
+}
